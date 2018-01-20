@@ -113,10 +113,6 @@ var IonicDeeplink = {
    * Check if the path matches the route.
    */
   routeMatch: function(route, path) {
-    if (route === path) {
-      return {};
-    }
-
     var parts = path.split('/');
     var routeParts = route.split('/');
 
@@ -124,7 +120,11 @@ var IonicDeeplink = {
     // This is used for things like /post/:id
     var routeParams = {};
 
-    if(parts.length !== routeParts.length) {
+    if (parts[0] === routeParts[0]){
+      //let it pass, el capitan, mon!
+      return routeParams;
+    }
+    else if(parts.length !== routeParts.length) {
       // Can't possibly match if the lengths are different
       return false;
     }
@@ -132,7 +132,7 @@ var IonicDeeplink = {
     // Otherwise, we need to check each part
 
     var rp, pp;
-    for(var i = 0; i < parts.length; i++) {
+    for(var i in parts) {
       pp = parts[i];
       rp = routeParts[i];
 
